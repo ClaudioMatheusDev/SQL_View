@@ -151,3 +151,24 @@ GROUP BY
 SELECT * FROM VW_Ranking_Exames
 ORDER BY Id_Paciente DESC;
 
+
+--Ranking das Doenças e pessoas acometidas
+CREATE VIEW VW_Ranking_Doencas
+AS
+SELECT 
+    D.Id_Doenca,
+    D.Nome_Doenca,
+    COUNT(C.Id_Paciente) AS Quantidade_De_Pessoas
+FROM
+    Doencas AS D
+INNER JOIN
+    Consultas AS C 
+ON 
+    D.Id_Doenca = C.Id_Doenca
+GROUP BY
+    D.Id_Doenca,
+    D.Nome_Doenca;
+
+SELECT * FROM VW_Ranking_Doencas
+ORDER BY Quantidade_De_Pessoas DESC;
+
